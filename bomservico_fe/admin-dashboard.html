@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Admin — BomServiço</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">BomServiço</a>
+      <div class="ms-auto">
+        <a id="btnSair" class="btn btn-outline-light btn-sm" href="#">Sair</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container my-4">
+    <h2 class="mb-3">Painel do Administrador</h2>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-header">
+            <strong>Gerenciar Categorias</strong>
+          </div>
+          <div class="card-body">
+            <form id="frmCat" class="row g-2">
+              <div class="col-8">
+                <input name="nome" class="form-control" placeholder="Nome da categoria">
+              </div>
+              <div class="col-4 d-grid">
+                <button class="btn btn-primary">Adicionar</button>
+              </div>
+            </form>
+            <div id="msgCat" class="mt-2 small"></div>
+            <ul id="listaCat" class="list-group mt-3"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-header">
+            <strong>Anúncios — moderação</strong>
+          </div>
+          <div class="card-body">
+            <div id="msgAn" class="small mb-2"></div>
+            <div id="listaAn" class="vstack gap-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+<script type="module" src="js/admin-dashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- TOAST GLOBAL -->
+<div id="toastContainer" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+"></div>
+
+<script>
+function showToast(message, type = 'success') {
+  const colors = {
+    success: '#4CAF50',
+    error: '#f44336',
+    warning: '#FFC107',
+    info: '#2196F3'
+  };
+
+  const toast = document.createElement('div');
+  toast.style.background = colors[type];
+  toast.style.color = 'white';
+  toast.style.padding = '14px 20px';
+  toast.style.borderRadius = '8px';
+  toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+  toast.style.fontSize = '15px';
+  toast.style.opacity = '0';
+  toast.style.transition = 'opacity 0.5s';
+  toast.textContent = message;
+
+  document.getElementById("toastContainer").appendChild(toast);
+
+  setTimeout(() => toast.style.opacity = '1', 50);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 500);
+  }, 3500);
+}
+</script>
+
+</body>
+</html>

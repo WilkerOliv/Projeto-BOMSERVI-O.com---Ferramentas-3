@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Meu Perfil - BomServiço</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .perfil-bg {
+      min-height: 100vh;
+      background: var(--cor-fundo);
+      padding: 40px 15px;
+    }
+
+    .perfil-card {
+      max-width: 680px;
+      margin: auto;
+      background: #fff;
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: var(--shadow-forte);
+      animation: fadeIn .4s ease;
+    }
+
+    .perfil-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="perfil-bg">
+
+    <div class="perfil-card">
+
+      <div class="perfil-title">Meu Perfil</div>
+
+      <!-- Autocomplete DESATIVADO -->
+      <form id="frmPerfil" autocomplete="off">
+
+        <div class="row">
+          <div class="col">
+            <label class="form-label fw-semibold">Login</label>
+            <input name="login" id="login" class="form-control mb-3" disabled autocomplete="off">
+          </div>
+          <div class="col">
+            <label class="form-label fw-semibold">Nome completo</label>
+            <input name="nome" id="nome" class="form-control mb-3" autocomplete="off">
+          </div>
+        </div>
+
+        <label class="form-label fw-semibold">Email</label>
+        <input name="email" id="email" type="email" class="form-control mb-3" autocomplete="off">
+
+        <div class="row">
+          <div class="col">
+            <label class="form-label fw-semibold">Telefone</label>
+            <input name="telefone" id="telefone" class="form-control mb-3" autocomplete="off">
+          </div>
+          <div class="col">
+            <label class="form-label fw-semibold">CPF</label>
+
+            <!-- CPF agora é SOMENTE LEITURA -->
+            <input name="cpf" id="cpf" class="form-control mb-3" 
+                   readonly autocomplete="off"
+                   style="background:#eef1f5; cursor:not-allowed;">
+          </div>
+        </div>
+
+        <label class="form-label fw-semibold">Data de nascimento</label>
+        <input name="dtNasc" id="dtNasc" class="form-control mb-3" placeholder="dd/mm/aaaa" autocomplete="off">
+
+        <label class="form-label fw-semibold">Endereço</label>
+        <input name="endereco" id="endereco" class="form-control mb-3" autocomplete="off">
+
+        <label class="form-label fw-semibold">Alterar senha (opcional)</label>
+        <input name="senha" id="senha" type="password" class="form-control mb-4" placeholder="Deixe em branco para não alterar" autocomplete="new-password">
+
+        <button class="btn btn-primary w-100">Salvar alterações</button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- TOAST GLOBAL -->
+  <div id="toastContainer" style="
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  "></div>
+
+  <script>
+    function showToast(message, type = 'success') {
+      const colors = {
+        success: '#4CAF50',
+        error: '#f44336',
+        warning: '#FFC107',
+        info: '#2196F3'
+      };
+
+      const toast = document.createElement('div');
+      toast.style.background = colors[type];
+      toast.style.color = 'white';
+      toast.style.padding = '14px 20px';
+      toast.style.borderRadius = '10px';
+      toast.style.boxShadow = 'var(--shadow-forte)';
+      toast.style.fontSize = '15px';
+      toast.style.opacity = '0';
+      toast.style.transition = 'opacity .4s';
+      toast.textContent = message;
+
+      document.getElementById("toastContainer").appendChild(toast);
+
+      setTimeout(() => toast.style.opacity = '1', 50);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+  </script>
+
+  <script type="module" src="js/perfil.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

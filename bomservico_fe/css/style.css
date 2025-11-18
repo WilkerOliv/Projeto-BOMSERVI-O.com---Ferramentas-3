@@ -1,0 +1,236 @@
+/* ================================
+   PALETA DE CORES MODERNA / TECH
+   Roxo → Azul → Neon
+================================ */
+:root {
+  --cor-primaria: #6a00f4;
+  --cor-primaria-clara: #8c3dff;
+  --cor-secundaria: #00c3ff;
+  --cor-neon: #3ee7ff;
+
+  --cor-fundo: #f3f2fa;
+  --cor-card: #ffffff;
+  --cor-texto: #1b1b1b;
+
+  --shadow-suave: 0 4px 14px rgba(0,0,0,0.08);
+  --shadow-forte: 0 6px 22px rgba(0,0,0,0.18);
+
+  --transition: all .25s ease;
+}
+
+body {
+  background: var(--cor-fundo);
+  font-family: "Inter", "Poppins", sans-serif;
+  color: var(--cor-texto);
+}
+
+/* ================================
+   NAVBAR ESTILO DISCORD / NUBANK
+================================ */
+.navbar {
+  background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+  padding: 14px 0;
+  box-shadow: var(--shadow-forte);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: .5px;
+}
+
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--cor-neon) !important;
+  transform: translateY(-2px);
+}
+
+/* ================================
+   BOTÕES MODERNOS
+================================ */
+.btn-primary {
+  background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 12px var(--cor-secundaria);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background: #ff3b55;
+  border: none;
+  transition: var(--transition);
+}
+
+.btn-danger:hover {
+  box-shadow: 0 0 12px #ff7b8e;
+  transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+  border-radius: 10px;
+}
+
+/* ================================
+   CARDS MODERNOS COM SOMBRA
+================================ */
+.card {
+  background: var(--cor-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow-suave);
+  transition: var(--transition);
+  border: none;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-forte);
+}
+
+/* ================================
+   INPUTS MODERNOS
+================================ */
+.form-control, .form-select {
+  border-radius: 10px !important;
+  padding: 10px 14px;
+  border: 1.5px solid #ddd;
+  transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 12px rgba(138,43,226,0.35);
+}
+
+/* ================================
+   TITULOS
+================================ */
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.display-5 {
+  color: var(--cor-primaria);
+}
+
+/* ================================
+   CARDS DE ANÚNCIOS
+================================ */
+.anuncio-card {
+  transition: var(--transition);
+}
+
+.anuncio-card img {
+  height: 190px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.anuncio-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-forte);
+  border: 2px solid var(--cor-primaria);
+}
+
+/* ================================
+   CARROSSEL
+================================ */
+.carousel img {
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+/* ================================
+   BOTÕES PEQUENOS HOVER
+================================ */
+.btn-sm:hover {
+  transform: scale(1.05);
+}
+
+/* ================================
+   FOTO ANTIGA - ESTILO CARD
+================================ */
+.foto-antiga-card {
+  width: 180px;
+  transition: var(--transition);
+}
+
+.foto-antiga-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-forte);
+}
+
+.foto-antiga-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* ================================
+   TOAST SUAVE E BONITO
+================================ */
+#toastContainer div {
+  animation: fadeIn .4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ================================
+   PÁGINA DE FORMULÁRIO DO ANÚNCIO
+================================ */
+.card-form {
+  background: #fff;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-forte);
+  transition: var(--transition);
+}
+
+.card-form:hover {
+  transform: translateY(-4px);
+}
+
+/* Espaçamento extra */
+.mb-3, .mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+/* ================================
+   LOGIN / REGISTER PAGES
+================================ */
+.login-container, .register-container {
+  max-width: 480px;
+  margin: 60px auto;
+  padding: 30px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--shadow-forte);
+}
+
+/* ================================
+   FOOTER MODERNO
+================================ */
+footer {
+  background: #111;
+  color: #aaa;
+  padding: 20px 0;
+  margin-top: 40px;
+  text-align: center;
+}

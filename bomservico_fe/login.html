@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Login - BomServiço</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    .login-bg {
+      min-height: 100vh;
+      background: linear-gradient(140deg, var(--cor-primaria), var(--cor-secundaria));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: #fff;
+      padding: 35px 30px;
+      border-radius: 18px;
+      box-shadow: var(--shadow-forte);
+      animation: fadeIn .4s ease;
+    }
+
+    .login-title {
+      font-weight: 700;
+      font-size: 2rem;
+      text-align: center;
+      background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <div class="login-bg">
+
+    <div class="login-card">
+
+      <div class="login-title">BomServiço</div>
+
+      <h4 class="fw-bold mb-3 text-center">Entrar</h4>
+
+      <form id="frm">
+
+        <input name="login" class="form-control mb-3" placeholder="Login (usu_login)" required>
+
+        <input name="senha" type="password" class="form-control mb-3" placeholder="Senha" required>
+
+        <button class="btn btn-primary w-100">Entrar</button>
+
+        <div class="text-center mt-3">
+          <a href="register.html" class="text-decoration-none">Não tem conta? <b>Cadastre-se</b></a>
+        </div>
+
+      </form>
+
+      <div id="msg" class="text-danger mt-2 small"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- TOAST GLOBAL -->
+  <div id="toastContainer" style="
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  "></div>
+
+  <script>
+  function showToast(message, type = 'success') {
+    const colors = {
+      success: '#4CAF50',
+      error: '#f44336',
+      warning: '#FFC107',
+      info: '#2196F3'
+    };
+
+    const toast = document.createElement('div');
+    toast.style.background = colors[type];
+    toast.style.color = 'white';
+    toast.style.padding = '14px 20px';
+    toast.style.borderRadius = '10px';
+    toast.style.boxShadow = 'var(--shadow-forte)';
+    toast.style.fontSize = '15px';
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity .4s';
+    toast.textContent = message;
+
+    document.getElementById("toastContainer").appendChild(toast);
+
+    setTimeout(() => toast.style.opacity = '1', 50);
+    setTimeout(() => {
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+  </script>
+
+  <script type="module" src="js/login.js"></script>
+
+</body>
+</html>

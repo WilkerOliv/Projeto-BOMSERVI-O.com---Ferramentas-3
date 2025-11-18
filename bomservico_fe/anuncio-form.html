@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Novo / Editar Anúncio — BomServiço</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* Fundo com leve gradiente */
+    body {
+      background: var(--cor-fundo);
+    }
+
+    /* Container principal */
+    .page-wrapper {
+      max-width: 820px;
+      margin: 50px auto;
+    }
+
+    /* Título estilizado */
+    .titulo-pagina {
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 25px;
+      background: linear-gradient(90deg, var(--cor-primaria), var(--cor-secundaria));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* Card do formulário (herda estilos globais) */
+    .card-form {
+      padding: 35px;
+      border-radius: 22px;
+      box-shadow: var(--shadow-forte);
+      background: #fff;
+      animation: fadeIn .4s ease;
+    }
+
+    /* Foto preview nova */
+    .foto-preview {
+      width: 180px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: var(--shadow-suave);
+      transition: var(--transition);
+    }
+
+    .foto-preview:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-forte);
+    }
+
+    #preview {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    /* Fotos antigas */
+    .fotos-antigas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .foto-antiga-card {
+      width: 180px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 14px;
+      box-shadow: var(--shadow-suave);
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .foto-antiga-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-forte);
+    }
+
+    .foto-antiga-card img {
+      width: 100%;
+      height: 120px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    /* Botão voltar */
+    .btn-voltar {
+      border-radius: 10px;
+      padding: 6px 14px;
+      font-weight: 500;
+    }
+
+    /* Fade suave */
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="page-wrapper">
+
+    <h3 class="titulo-pagina">Gerenciar Anúncio</h3>
+
+    <div class="text-end mb-3">
+      <a href="dashboard-prestador.html" class="btn btn-outline-secondary btn-voltar">← Voltar</a>
+    </div>
+
+    <div class="card-form">
+
+      <form id="frm">
+        <input type="hidden" name="id">
+
+        <!-- TÍTULO -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Título</label>
+          <input name="titulo" class="form-control" required>
+        </div>
+
+        <!-- DESCRIÇÃO -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Descrição</label>
+          <textarea name="descricao" class="form-control" rows="4"></textarea>
+        </div>
+
+        <!-- DIAS + HORÁRIOS -->
+        <div class="row mb-3">
+          <div class="col">
+            <label class="form-label fw-semibold">Dias de trabalho</label>
+            <select name="diasTrabalho" id="diasTrabalho" class="form-select" required>
+              <option value="">Selecione...</option>
+              <option value="Seg - Sex">Seg – Sex</option>
+              <option value="Seg - Sáb">Seg – Sáb</option>
+              <option value="Seg - Dom">Seg – Dom</option>
+              <option value="Ter - Qui">Ter – Qui</option>
+              <option value="Sáb - Dom">Sáb – Dom</option>
+              <option value="Dom - Dom">Dom – Dom</option>
+              <option value="Todos os dias">Todos os dias</option>
+            </select>
+          </div>
+
+          <div class="col">
+            <label class="form-label fw-semibold">Início</label>
+            <input name="horarioInicio" class="form-control" placeholder="08:00">
+          </div>
+
+          <div class="col">
+            <label class="form-label fw-semibold">Fim</label>
+            <input name="horarioFim" class="form-control" placeholder="18:00">
+          </div>
+        </div>
+
+        <!-- CATEGORIAS -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Categorias</label>
+          <select id="cats" multiple class="form-select"></select>
+          <small class="text-muted">Segure CTRL para selecionar várias opções.</small>
+        </div>
+
+        <!-- FOTOS ANTIGAS -->
+        <div id="fotosAntigasBox" class="fotos-antigas"></div>
+
+        <!-- NOVAS FOTOS -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Adicionar novas fotos (até 3)</label>
+          <input id="files" type="file" accept="image/*" multiple class="form-control">
+          <div id="preview"></div>
+        </div>
+
+        <!-- BOTÃO SALVAR -->
+        <button class="btn btn-primary w-100 py-2 fw-semibold">Salvar anúncio</button>
+
+      </form>
+
+      <div id="msg" class="mt-3"></div>
+
+    </div>
+  </div>
+
+  <script type="module" src="js/anuncio-form.js"></script>
+
+  <!-- TOAST GLOBAL -->
+  <div id="toastContainer" style="position: fixed; top: 20px; right: 20px; z-index: 99999; display:flex; flex-direction:column; gap:10px;"></div>
+
+  <script>
+    function showToast(message, type = 'success') {
+      const colors = {
+        success: '#4CAF50',
+        error: '#f44336',
+        warning: '#FFC107',
+        info: '#2196F3'
+      };
+
+      const toast = document.createElement('div');
+      toast.style.background = colors[type];
+      toast.style.color = 'white';
+      toast.style.padding = '14px 20px';
+      toast.style.borderRadius = '10px';
+      toast.style.boxShadow = 'var(--shadow-forte)';
+      toast.style.fontSize = '15px';
+      toast.style.opacity = '0';
+      toast.style.transition = 'opacity .4s';
+      toast.textContent = message;
+
+      document.getElementById("toastContainer").appendChild(toast);
+
+      setTimeout(() => toast.style.opacity = '1', 50);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>

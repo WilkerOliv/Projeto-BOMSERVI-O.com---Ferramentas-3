@@ -1,0 +1,561 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict 8yywmMKejhYtzmy9QGJfyZjlqDNvRC1snbfurlvHh7E43Xoas07If1FFtRHeHGx
+
+-- Dumped from database version 17.6 (Ubuntu 17.6-2.pgdg24.04+1)
+-- Dumped by pg_dump version 18.0 (Ubuntu 18.0-1.pgdg24.04+3)
+
+-- Started on 2025-11-18 01:21:34 -03
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 5 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA public;
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- TOC entry 3465 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'standard public schema';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 217 (class 1259 OID 18504)
+-- Name: anu_cat; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.anu_cat (
+    ac_id integer NOT NULL,
+    anu_id bigint,
+    cat_id bigint
+);
+
+
+ALTER TABLE public.anu_cat OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 18507)
+-- Name: anu_cat_ac_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.anu_cat_ac_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.anu_cat_ac_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3467 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: anu_cat_ac_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.anu_cat_ac_id_seq OWNED BY public.anu_cat.ac_id;
+
+
+--
+-- TOC entry 219 (class 1259 OID 18508)
+-- Name: anuncio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.anuncio (
+    anu_id bigint NOT NULL,
+    usu_login character varying(16) NOT NULL,
+    anu_titulo character varying(60) NOT NULL,
+    anu_descricao character varying(200),
+    anu_diastrabalho character varying(30) NOT NULL,
+    anu_horarioinicio character varying(5) NOT NULL,
+    anu_horariofim character varying(5) NOT NULL,
+    anu_descr text,
+    anu_dias_trab character varying(50),
+    anu_horario_fim character varying(10),
+    anu_horario_inicio character varying(10)
+);
+
+
+ALTER TABLE public.anuncio OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 18511)
+-- Name: anuncio_anu_cod_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.anuncio_anu_cod_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.anuncio_anu_cod_seq OWNER TO postgres;
+
+--
+-- TOC entry 3468 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: anuncio_anu_cod_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.anuncio_anu_cod_seq OWNED BY public.anuncio.anu_id;
+
+
+--
+-- TOC entry 221 (class 1259 OID 18512)
+-- Name: categoria; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.categoria (
+    cat_id bigint NOT NULL,
+    cat_nome character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.categoria OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 18515)
+-- Name: categoria_cat_cod_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.categoria_cat_cod_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.categoria_cat_cod_seq OWNER TO postgres;
+
+--
+-- TOC entry 3469 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: categoria_cat_cod_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.categoria_cat_cod_seq OWNED BY public.categoria.cat_id;
+
+
+--
+-- TOC entry 223 (class 1259 OID 18516)
+-- Name: foto; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.foto (
+    fot_id bigint NOT NULL,
+    anu_id bigint NOT NULL,
+    fot_file character varying(200) NOT NULL
+);
+
+
+ALTER TABLE public.foto OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 18519)
+-- Name: foto_fot_cod_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.foto_fot_cod_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.foto_fot_cod_seq OWNER TO postgres;
+
+--
+-- TOC entry 3470 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: foto_fot_cod_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.foto_fot_cod_seq OWNED BY public.foto.fot_id;
+
+
+--
+-- TOC entry 225 (class 1259 OID 18520)
+-- Name: interesse; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.interesse (
+    int_id bigint NOT NULL,
+    int_nome character varying(100),
+    int_fone character varying(20),
+    int_email character varying(100),
+    int_mensagem text,
+    anu_id bigint
+);
+
+
+ALTER TABLE public.interesse OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 18525)
+-- Name: interesse_int_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.interesse_int_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.interesse_int_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3471 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: interesse_int_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.interesse_int_id_seq OWNED BY public.interesse.int_id;
+
+
+--
+-- TOC entry 227 (class 1259 OID 18526)
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.usuario (
+    usu_login character varying(16) NOT NULL,
+    usu_senha character varying(255) NOT NULL,
+    usu_nivel integer NOT NULL,
+    usu_nome character varying(50) NOT NULL,
+    usu_cpf character varying(20),
+    usu_dtnascimento date,
+    usu_email character varying(50),
+    usu_telefone character varying(20),
+    usu_endereco character varying(100)
+);
+
+
+ALTER TABLE public.usuario OWNER TO postgres;
+
+--
+-- TOC entry 3282 (class 2604 OID 18529)
+-- Name: anu_cat ac_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.anu_cat ALTER COLUMN ac_id SET DEFAULT nextval('public.anu_cat_ac_id_seq'::regclass);
+
+
+--
+-- TOC entry 3283 (class 2604 OID 18601)
+-- Name: anuncio anu_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.anuncio ALTER COLUMN anu_id SET DEFAULT nextval('public.anuncio_anu_cod_seq'::regclass);
+
+
+--
+-- TOC entry 3284 (class 2604 OID 18628)
+-- Name: categoria cat_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categoria ALTER COLUMN cat_id SET DEFAULT nextval('public.categoria_cat_cod_seq'::regclass);
+
+
+--
+-- TOC entry 3285 (class 2604 OID 18640)
+-- Name: foto fot_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.foto ALTER COLUMN fot_id SET DEFAULT nextval('public.foto_fot_cod_seq'::regclass);
+
+
+--
+-- TOC entry 3286 (class 2604 OID 18656)
+-- Name: interesse int_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.interesse ALTER COLUMN int_id SET DEFAULT nextval('public.interesse_int_id_seq'::regclass);
+
+
+--
+-- TOC entry 3449 (class 0 OID 18504)
+-- Dependencies: 217
+-- Data for Name: anu_cat; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.anu_cat (ac_id, anu_id, cat_id) FROM stdin;
+2	2	4
+3	3	4
+35	11	1
+37	16	5
+\.
+
+
+--
+-- TOC entry 3451 (class 0 OID 18508)
+-- Dependencies: 219
+-- Data for Name: anuncio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.anuncio (anu_id, usu_login, anu_titulo, anu_descricao, anu_diastrabalho, anu_horarioinicio, anu_horariofim, anu_descr, anu_dias_trab, anu_horario_fim, anu_horario_inicio) FROM stdin;
+2	eddy	Pijama Micros	Fazemos manutencao de micros computadores	Domingo - Doming	06:00	05:00	\N	\N	\N	\N
+3	eddy	Criacao de sites	Sites de otimas qualidades, so vem!	seg - sab	10:00	18:00	\N	\N	\N	\N
+11	jorge	Frete rápido	\N	Seg - Sáb	00:00	18:00	Cidades próximas, preço justo.	\N	\N	\N
+16	jorge	Frete rápido	\N	Seg - Dom	07:50	23:00	teste 4	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 3453 (class 0 OID 18512)
+-- Dependencies: 221
+-- Data for Name: categoria; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.categoria (cat_id, cat_nome) FROM stdin;
+3	Culinaria
+4	Criacao
+5	Video
+6	Imagem
+7	Audiovisual
+10	Limpeza Doméstica
+1	Reparos 1
+\.
+
+
+--
+-- TOC entry 3455 (class 0 OID 18516)
+-- Dependencies: 223
+-- Data for Name: foto; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.foto (fot_id, anu_id, fot_file) FROM stdin;
+151	2	eddy_micro1.jpg
+152	3	eddy_sites1.png
+164	11	1763429852736_IMG_0281.PNG
+165	11	1763429852782_IMG_0280.PNG
+167	16	1763439087404_Captura de tela de 2025-10-01 20-20-38.png
+\.
+
+
+--
+-- TOC entry 3457 (class 0 OID 18520)
+-- Dependencies: 225
+-- Data for Name: interesse; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.interesse (int_id, int_nome, int_fone, int_email, int_mensagem, anu_id) FROM stdin;
+2	Carlos Lima	(18)99123-6547	carlos.lima@example.com	Preciso de manutenção urgente no meu computador.	2
+3	Juliana Ramos	(18)99765-8877	juliana.ramos@example.com	Quanto custa para criar um site simples?	3
+\.
+
+
+--
+-- TOC entry 3459 (class 0 OID 18526)
+-- Dependencies: 227
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.usuario (usu_login, usu_senha, usu_nivel, usu_nome, usu_cpf, usu_dtnascimento, usu_email, usu_telefone, usu_endereco) FROM stdin;
+admin	admin	1	Evandro Junior	453.265.128-07	1999-02-10	ecsb.junior@gmail.com	(18)99182-3034	Rua Enio Pepino,831 - Parque Augusto Pereira
+eddy	eddy123	0	Eddy da Silva	449.887.556-08	1999-10-10	eddy@gmail.com	(18)99182-6459	Rua Ed,2 - Fipp
+evandro	evandro	1	Evandro Junior Filho	453.265.128-07	1999-02-10	evandro@gmail.com	(18)99182-3034	Rua Enio Pepino,831 - Parque Augusto Pereira
+jorge	123	0	Jorge Augusto teste	453.238.456-99	1999-02-10	jorge@gmail.com	(18)99105-8146	Rua dos Almirantes,999 - Sonho
+wilker123	123	0	Wilker Oliveira	473.294.388-80	2003-02-20	wilkeroliveira@gmail.com	(18) 99791-8368	Rua urias lemes dos santos
+prestador	teste	0	prestador teste	111.111.111-11	2003-02-20	teste@gmail.com	(18) 9999-9999	rua 3
+\.
+
+
+--
+-- TOC entry 3472 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: anu_cat_ac_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.anu_cat_ac_id_seq', 37, true);
+
+
+--
+-- TOC entry 3473 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: anuncio_anu_cod_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.anuncio_anu_cod_seq', 16, true);
+
+
+--
+-- TOC entry 3474 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: categoria_cat_cod_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.categoria_cat_cod_seq', 13, true);
+
+
+--
+-- TOC entry 3475 (class 0 OID 0)
+-- Dependencies: 224
+-- Name: foto_fot_cod_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.foto_fot_cod_seq', 167, true);
+
+
+--
+-- TOC entry 3476 (class 0 OID 0)
+-- Dependencies: 226
+-- Name: interesse_int_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.interesse_int_id_seq', 9, true);
+
+
+--
+-- TOC entry 3288 (class 2606 OID 18535)
+-- Name: anu_cat anu_cat_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.anu_cat
+    ADD CONSTRAINT anu_cat_pkey PRIMARY KEY (ac_id);
+
+
+--
+-- TOC entry 3296 (class 2606 OID 18658)
+-- Name: interesse interesse_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.interesse
+    ADD CONSTRAINT interesse_pkey PRIMARY KEY (int_id);
+
+
+--
+-- TOC entry 3290 (class 2606 OID 18603)
+-- Name: anuncio pk_anu; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.anuncio
+    ADD CONSTRAINT pk_anu PRIMARY KEY (anu_id);
+
+
+--
+-- TOC entry 3292 (class 2606 OID 18630)
+-- Name: categoria pk_cat; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.categoria
+    ADD CONSTRAINT pk_cat PRIMARY KEY (cat_id);
+
+
+--
+-- TOC entry 3294 (class 2606 OID 18642)
+-- Name: foto pk_foto; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.foto
+    ADD CONSTRAINT pk_foto PRIMARY KEY (fot_id);
+
+
+--
+-- TOC entry 3298 (class 2606 OID 18545)
+-- Name: usuario pk_usu; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.usuario
+    ADD CONSTRAINT pk_usu PRIMARY KEY (usu_login);
+
+
+--
+-- TOC entry 3299 (class 2606 OID 18614)
+-- Name: anu_cat anu_cat_anu_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.anu_cat
+    ADD CONSTRAINT anu_cat_anu_id_fkey FOREIGN KEY (anu_id) REFERENCES public.anuncio(anu_id) NOT VALID;
+
+
+--
+-- TOC entry 3300 (class 2606 OID 18631)
+-- Name: anu_cat anu_cat_cat_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.anu_cat
+    ADD CONSTRAINT anu_cat_cat_id_fkey FOREIGN KEY (cat_id) REFERENCES public.categoria(cat_id) NOT VALID;
+
+
+--
+-- TOC entry 3301 (class 2606 OID 18623)
+-- Name: anuncio fk_anusu; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.anuncio
+    ADD CONSTRAINT fk_anusu FOREIGN KEY (usu_login) REFERENCES public.usuario(usu_login);
+
+
+--
+-- TOC entry 3302 (class 2606 OID 18647)
+-- Name: foto foto_anu_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.foto
+    ADD CONSTRAINT foto_anu_id_fkey FOREIGN KEY (anu_id) REFERENCES public.anuncio(anu_id) NOT VALID;
+
+
+--
+-- TOC entry 3303 (class 2606 OID 18665)
+-- Name: interesse interesse_anu_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.interesse
+    ADD CONSTRAINT interesse_anu_id_fkey FOREIGN KEY (anu_id) REFERENCES public.anuncio(anu_id) NOT VALID;
+
+
+--
+-- TOC entry 3466 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE USAGE ON SCHEMA public FROM PUBLIC;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2025-11-18 01:21:34 -03
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict 8yywmMKejhYtzmy9QGJfyZjlqDNvRC1snbfurlvHh7E43Xoas07If1FFtRHeHGx
+

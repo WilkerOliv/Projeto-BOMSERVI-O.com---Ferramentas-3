@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>BomServiço.com — Classificados de Serviços</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-light">
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">BomServiço</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="topNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a id="dashboardLink" class="nav-link" href="#" style="display:none;">Meu painel</a></li>
+          <li class="nav-item"><a id="loginLink" class="nav-link" href="login.html">Entrar</a></li>
+          <li class="nav-item"><a id="logoutLink" class="nav-link" href="#" style="display:none;">Sair</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="py-5 bg-white border-bottom">
+    <div class="container">
+      <div class="row align-items-center gy-4">
+
+        <div class="col-lg-7">
+          <h1 class="display-5 fw-bold">Encontre e ofereça serviços com facilidade</h1>
+          <p class="lead text-muted">Pesquise por categorias como reparos, transporte, culinária, limpeza e muito mais.</p>
+
+          <div class="d-flex gap-2">
+            <a class="btn btn-primary btn-lg" href="#busca">Buscar anúncios</a>
+            <a class="btn btn-outline-light btn-lg border-primary text-primary" href="register.html">Seja um prestador</a>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="p-4 rounded-3 border bg-light shadow-sm">
+            <h5 class="mb-3">Acesso rápido</h5>
+
+            <div class="d-grid gap-2">
+              <a class="btn btn-outline-secondary" id="btnEntrarR" href="login.html">Entrar</a>
+              <a class="btn btn-success" id="btnCriarR" href="register.html">Criar conta de Prestador</a>
+
+              <a class="btn btn-primary" id="atalhoDashboard" href="#" style="display:none;">Ir para meu painel</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- BUSCA -->
+  <main class="py-5" id="busca">
+    <div class="container">
+      <h3 class="mb-3">Pesquise anúncios</h3>
+
+      <form id="frmBusca" class="row gy-2 gx-2 align-items-end">
+        <div class="col-sm-6 col-lg-4">
+          <label class="form-label">Termo</label>
+          <input name="q" class="form-control" placeholder="Ex.: elétrica, frete, marmita...">
+        </div>
+
+        <div class="col-sm-6 col-lg-4">
+          <label class="form-label">Categoria</label>
+          <select name="cat" class="form-select">
+            <option value="">Todas</option>
+          </select>
+        </div>
+
+        <div class="col-sm-6 col-lg-2">
+          <button class="btn btn-primary w-100">Buscar</button>
+        </div>
+      </form>
+
+      <div id="listaAnuncios" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-2"></div>
+      <div id="msgBusca" class="mt-3 text-muted"></div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-4 bg-white border-top">
+    <div class="container text-center small text-muted">
+      © BomServiço.com — projeto acadêmico
+    </div>
+  </footer>
+
+
+  <!-- ========================================= -->
+  <!--  MODAL — VER ANÚNCIO (CARROSSEL)          -->
+  <!-- ========================================= -->
+  <div class="modal fade" id="modalAnuncio" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content shadow-lg">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="mTitulo">Anúncio</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+
+        <div class="modal-body">
+
+          <!-- CARROSSEL -->
+          <div id="carouselFotos" class="carousel slide mb-3" data-bs-ride="carousel"></div>
+
+          <p id="mCategorias" class="text-muted small"></p>
+
+          <p id="mDescricao"></p>
+
+          <p><strong>Horário:</strong> <span id="mHorario"></span></p>
+          <p><strong>Dias:</strong> <span id="mDias"></span></p>
+
+          <hr>
+
+          <h6>Contato do Prestador</h6>
+          <p><strong>Email:</strong> <span id="mEmail"></span></p>
+          <p><strong>Telefone:</strong> <span id="mTelefone"></span></p>
+
+          <hr>
+
+          <!-- ÁREA DE MENSAGEM -->
+          <div id="mAreaMensagemLogado" style="display:none;">
+
+            <h5>Enviar mensagem ao prestador</h5>
+
+            <textarea id="mMensagem" class="form-control mb-2" rows="3" placeholder="Digite sua mensagem"></textarea>
+
+            <button class="btn btn-primary w-100" id="btnEnviarMensagem">
+              Enviar mensagem
+            </button>
+
+            <div id="msgEnvio" class="mt-2"></div>
+
+          </div>
+
+          <div id="mAreaMensagemNaoLogado" style="display:none;">
+            <div class="alert alert-info">
+              É necessário estar logado para enviar mensagem.
+            </div>
+            <a class="btn btn-primary w-100" href="login.html">Entrar</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- SCRIPTS -->
+  <script type="module" src="js/index.js"></script>
+  <script type="module" src="js/index-anuncio-modal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- TOAST GLOBAL -->
+<div id="toastContainer" style="
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+"></div>
+
+<script>
+function showToast(message, type = 'success') {
+  const colors = {
+    success: '#4CAF50',
+    error: '#f44336',
+    warning: '#FFC107',
+    info: '#2196F3'
+  };
+
+  const toast = document.createElement('div');
+  toast.style.background = colors[type];
+  toast.style.color = 'white';
+  toast.style.padding = '14px 20px';
+  toast.style.borderRadius = '8px';
+  toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+  toast.style.fontSize = '15px';
+  toast.style.opacity = '0';
+  toast.style.transition = 'opacity 0.5s';
+  toast.textContent = message;
+
+  document.getElementById("toastContainer").appendChild(toast);
+
+  setTimeout(() => toast.style.opacity = '1', 50);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    setTimeout(() => toast.remove(), 500);
+  }, 3500);
+}
+</script>
+
+
+</body>
+</html>
