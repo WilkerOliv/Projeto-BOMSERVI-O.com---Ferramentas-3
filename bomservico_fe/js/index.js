@@ -2,54 +2,66 @@ import { getUser, logout } from "./auth.js";
 import AnuncioAPI from "./anuncios-api.js";
 
 // MENU
+function safe(id) {
+  return document.getElementById(id);
+}
+
+function show(id) {
+  const el = safe(id);
+  if (el) el.style.display = "block";
+}
+
+function hide(id) {
+  const el = safe(id);
+  if (el) el.style.display = "none";
+}
+
 function atualizarMenu() {
   const user = getUser();
 
-  const loginLink = document.getElementById("loginLink");
-  const logoutLink = document.getElementById("logoutLink");
-  const adminLink = document.getElementById("adminLink");
-  const dashboardLink = document.getElementById("dashboardLink");
-  const atalhoDashboard = document.getElementById("atalhoDashboard");
-  const atalhoAdmin = document.getElementById("atalhoAdmin");
-  const btnEntrarR = document.getElementById("btnEntrarR");
-  const btnCriarR = document.getElementById("btnCriarR");
+  // Referências seguras
+  const loginLink = safe("loginLink");
+  const logoutLink = safe("logoutLink");
+  const dashboardLink = safe("dashboardLink");
+  const btnEntrarR = safe("btnEntrarR");
+  const btnCriarR = safe("btnCriarR");
+  const atalhoDashboard = safe("atalhoDashboard");
 
   if (!user) {
-    loginLink.style.display = "block";
-    btnEntrarR.style.display = "block";
-    btnCriarR.style.display = "block";
+    show("loginLink");
+    show("btnEntrarR");
+    show("btnCriarR");
 
-    logoutLink.style.display = "none";
-    adminLink.style.display = "none";
-    dashboardLink.style.display = "none";
-    atalhoDashboard.style.display = "none";
-    atalhoAdmin.style.display = "none";
+    hide("logoutLink");
+    hide("dashboardLink");
+    hide("atalhoDashboard");
+
     return;
   }
 
-  loginLink.style.display = "none";
-  btnEntrarR.style.display = "none";
-  btnCriarR.style.display = "none";
+  // Logado
+  hide("loginLink");
+  hide("btnEntrarR");
+  hide("btnCriarR");
 
-  logoutLink.style.display = "block";
-  logoutLink.onclick = e => { e.preventDefault(); logout(); };
+  if (logoutLink) {
+    logoutLink.style.display = "block";
+    logoutLink.onclick = e => { e.preventDefault(); logout(); };
+  }
 
   const isAdmin = Number(user.nivel) === 1;
 
-  dashboardLink.style.display = "block";
-  dashboardLink.href = isAdmin ? "admin-dashboard.html" : "dashboard-prestador.html";
+  if (dashboardLink) {
+    dashboardLink.style.display = "block";
+    dashboardLink.href = isAdmin ? "admin-dashboard.html" : "dashboard-prestador.html";
+  }
 
-  atalhoDashboard.style.display = "block";
-  atalhoDashboard.href = dashboardLink.href;
-
-  if (isAdmin) {
-    adminLink.style.display = "block";
-    atalhoAdmin.style.display = "block";
-  } else {
-    adminLink.style.display = "none";
-    atalhoAdmin.style.display = "none";
+  if (atalhoDashboard) {
+    atalhoDashboard.style.display = "block";
+    atalhoDashboard.href = dashboardLink ? dashboardLink.href : "#";
   }
 }
+
 
 // CATEGORIAS
 async function carregarCategorias() {
