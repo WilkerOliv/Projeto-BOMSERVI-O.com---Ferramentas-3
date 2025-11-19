@@ -1,15 +1,21 @@
 import { requireAdmin } from "./auth-guard.js";
 import { logout } from "./auth.js";
 
+// SINGLE INITIALIZER (apenas UM!)
 window.addEventListener("DOMContentLoaded", () => {
   requireAdmin();
+
   document.getElementById("btnSair").onclick = logout;
 
   carregarCategorias();
   configurarCategoriaForm();
+  carregarAnuncios();
 });
 
-// LISTAR
+
+// ==============================
+//     LISTAR CATEGORIAS
+// ==============================
 async function carregarCategorias() {
   const lista = document.getElementById("listaCat");
   lista.innerHTML = "";
@@ -29,6 +35,7 @@ async function carregarCategorias() {
   `).join("");
 }
 
+
 window.editarCat = function (id) {
   const span = document.getElementById(`catNome_${id}`);
   const nomeAtual = span.innerText;
@@ -39,9 +46,9 @@ window.editarCat = function (id) {
   `;
 };
 
+
 window.salvarCat = async function (id) {
   const novoNome = document.getElementById(`catEdit_${id}`).value.trim();
-
   if (!novoNome) return;
 
   await fetch(`http://localhost:8080/api/categorias/${id}`, {
@@ -56,6 +63,7 @@ window.salvarCat = async function (id) {
   carregarCategorias();
 };
 
+
 window.excluirCat = async function (id) {
   if (!confirm("Excluir categoria?")) return;
 
@@ -67,10 +75,14 @@ window.excluirCat = async function (id) {
   carregarCategorias();
 };
 
-// ADICIONAR
+
+// ==============================
+//     FORMULARIO ADICIONAR
+// ==============================
 function configurarCategoriaForm() {
   const form = document.getElementById("frmCat");
 
+  // Evita registrar duplo listener
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -88,23 +100,13 @@ function configurarCategoriaForm() {
 
     form.reset();
     carregarCategorias();
-  });
+  }, { once: true }); // ← PREVINE DUPLICAR LISTENER
 }
 
 
-
 // ==============================
-//     LISTAR ANÚNCIOS (ADMIN)
+//     LISTAR ANÚNCIOS
 // ==============================
-
-window.addEventListener("DOMContentLoaded", () => {
-  requireAdmin();
-  carregarCategorias();
-  configurarCategoriaForm();
-  carregarAnuncios(); // <-- AQUI FAZ APARECER
-});
-
-// Carregar todos anúncios
 async function carregarAnuncios() {
   const box = document.getElementById("listaAn");
   const msg = document.getElementById("msgAn");
@@ -125,9 +127,7 @@ async function carregarAnuncios() {
 
   const anuncios = await r.json();
 
-  msg.innerText = anuncios.length
-    ? ""
-    : "Nenhum anúncio encontrado.";
+  msg.innerText = anuncios.length ? "" : "Nenhum anúncio encontrado.";
 
   anuncios.forEach(a => {
     const foto = (a.fotoList?.length)
@@ -144,9 +144,7 @@ async function carregarAnuncios() {
             <h6 class="mb-1">${a.titulo}</h6>
             <p class="small text-muted mb-1">${a.descricao ?? ""}</p>
             <p class="small mb-1"><strong>Prestador:</strong> ${a.usuario?.nome ?? "--"} (${a.usuario?.login})</p>
-            <button class="btn btn-danger btn-sm" onclick="removerAnuncio(${a.id})">
-              Excluir anúncio
-            </button>
+            <button class="btn btn-danger btn-sm" onclick="removerAnuncio(${a.id})">Excluir anúncio</button>
           </div>
         </div>
       </div>
@@ -154,7 +152,10 @@ async function carregarAnuncios() {
   });
 }
 
-// Remover anúncio
+
+// ==============================
+//     REMOVER ANÚNCIO
+// ==============================
 window.removerAnuncio = async function(id) {
   if (!confirm("Excluir este anúncio permanentemente?")) return;
 
@@ -165,5 +166,5 @@ window.removerAnuncio = async function(id) {
     }
   });
 
-  carregarAnuncios(); // atualiza lista
+  carregarAnuncios(); 
 };
